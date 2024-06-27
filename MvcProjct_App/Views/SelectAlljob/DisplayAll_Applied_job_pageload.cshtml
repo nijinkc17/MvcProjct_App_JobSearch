@@ -31,14 +31,14 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr class="job-row">
-                                        <td class="font-weight-bold text-primary">@item.Title</td>
+                                        <td class="font-weight-bold text-primary">@item.@*Title</td>
                                         <td class="font-weight-bold text-primary">@item.Experience</td>
-                                        <td class="font-weight-bold text-primary">@item.Skill</td>
+                                        <td class="font-weight-bold text-primary">@item.Skill</td>*@
                                         <td class="font-weight-bold text-primary">
                                             <a href="@Url.Content(item.Resume)" target="_blank">View Resume</a>
                                         </td>
                                         <td>@item.Status</td>
-                                        <td><i class="far fa-calendar-alt mr-1"></i>@item.Appication_date.ToString("dd MMM yyyy")</td>
+                                        <td>@*<i class="far fa-calendar-alt mr-1"></i>@item.Appication_date.ToString("dd MMM yyyy")*@</td>
                                     </tr>
                                 }
                             </tbody>
