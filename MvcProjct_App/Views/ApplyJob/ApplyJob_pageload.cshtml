@@ -1,0 +1,52 @@
+﻿@model MvcProjct_App.Models.ApplyJobcls
+@{
+    ViewBag.Title = "Apply for Job";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="bg-info text-uppercase p-3">Job Application</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            @using (Html.BeginForm("ApplyJob_click", "ApplyJob", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Resume:</label>
+                    <div class="col-md-9">
+                        <input type="file" name="file" class="form-control-file" required />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Application Date:</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Application_date, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        @Html.ValidationMessageFor(m => m.Application_date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-9 offset-md-3">
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                        @Html.ActionLink("Back to Home", "Login_pageload", "UserLogin", null, new { @class = "btn btn-secondary ml-2" })
+                    </div>
+                </div>
+
+                if (Model != null && !string.IsNullOrEmpty(Model.msg))
+                {
+                    <div class="alert alert-success mt-3">
+                        @Model.msg
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

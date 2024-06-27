@@ -1,0 +1,9 @@
+﻿@model MvcProjct_App.Models.Jsearch
+
+@{
+    ViewBag.Title = "Job Listings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("job search", "Searchjob_pageload", "SearchJob", null, new { @class = "btn btn-default" })
+

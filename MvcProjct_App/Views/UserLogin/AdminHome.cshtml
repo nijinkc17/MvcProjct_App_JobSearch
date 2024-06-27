@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "AdminHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AdminHome</h2>
+
+@Html.ActionLink("Add job", "jobPageload", "JbInsert", null, new { @class = "btn btn-default" })
+@Html.ActionLink("View job", "DisplayAlljob_pageload", "SelectAlljob", null, new { @class = "btn btn-default" })
+@Html.ActionLink("View Applied jobs", "DisplayAll_Applied_job_pageload", "SelectAlljob", null, new { @class = "btn btn-default" })
+

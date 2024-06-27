@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Job Opportunities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid py-5 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+                <div class="card-header bg-gradient-primary text-white p-4">
+                    <h2 class="mb-0 text-center font-weight-bold">
+                        <i class="fas fa-briefcase mr-2"></i>Job Opportunities
+                    </h2>
+                </div>
+                <div class="card-body p-0">
+                    @using (Html.BeginForm("DisplayAlljob_pageload", "SelectAlljob", FormMethod.Get, new { @class = "m-0" }))
+                    {
+                        <div class="table-responsive">
+                            <table id="jobTable" class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Job Title</th>
+                                        <th>Experience</th>
+                                        <th>Skills</th>
+                                        <th>Vacancies</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.jobtab)
+                                    {
+                                        <tr class="job-row">
+                                            <td class="font-weight-bold text-primary">@item.Title</td>
+                                            <td><i class="fas fa-user-clock mr-1"></i>@item.Experience</td>
+                                            <td>
+                                                @foreach (var skill in item.Skill.Split(','))
+                                                {
+                                                    <span class="badge badge-info mr-1">@skill.Trim()</span>
+                                                }
+                                            </td>
+                                            <td><i class="fas fa-users mr-1"></i>@item.No_vaccancy</td>
+                                            <td><i class="far fa-calendar-alt mr-1"></i>@item.Date.ToString("dd MMM yyyy")</td>
+                                            <td>
+                                                @if (item.Status == 1)
+                                                {
+                                                    <span class="badge badge-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-secondary">Inactive</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    @Html.ActionLink("Edit", "Edit_pageload", "JbUpdate", new { id = item.Jb_id }, new { @class = "btn btn-sm btn-outline-primary", @title = "Edit this job" })
+                                                    @Html.ActionLink("Delete", "delete_pageload", "JbUpdate", new { id = item.Jb_id }, new { @class = "btn btn-sm btn-outline-danger", @title = "Delete this job" })
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #4e73df, #36b9cc);
+    }
+
+    .table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    .badge {
+        font-size: 0.8em;
+        padding: 0.4em 0.7em;
+    }
+
+    .job-row:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,.1);
+        transition: all 0.3s ease;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#jobTable').DataTable({
+                "pageLength": 10,
+                "order": [[4, "desc"]]
+            });
+        });
+    </script>
+}
